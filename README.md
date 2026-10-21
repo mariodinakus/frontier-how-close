@@ -40,3 +40,7 @@ No user data is transmitted by the interactive labs. Saved topics/language are s
 ## Source
 
 See `src/lib/content.ts` for each frontier's attributed source library and research checkpoints.
+
+## Research stream (2026)
+
+A continuously refreshed literature-discovery view is available at the sidebar's Research Stream tab and on the overview. It queries `/api/research?topic=all` (a transparent sample of six research areas) and specific topics such as `?topic=gravity`. OpenAlex and Crossref are used as public, keyless metadata sources with a 15-minute server cache. The browser refreshes when a view opens and every 15 minutes while it stays open. Results have original destinations, dates and provider labels. The curated evidence indicators are **not** continuously verified. Indexing cannot establish peer-review status, correctness, or scientific consensus.
