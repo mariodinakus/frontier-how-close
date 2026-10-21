@@ -5,7 +5,7 @@ export async function GET(req:NextRequest){
  const query=raw.trim().slice(0,160);
  if(query.length<4)return NextResponse.json({error:'Query too short'},{status:400});
  try {
-  const url=new URL('https://api.crossref.org/works');url.searchParams.set('query.title',query);url.searchParams.set('rows','8');url.searchParams.set('sort','published');url.searchParams.set('order','desc');url.searchParams.set('filter','from-pub-date:2023-01-01,until-pub-date:2026-10-16');url.searchParams.set('select','DOI,title,published,publisher,URL,type');
+  const url=new URL('https://api.crossref.org/works');url.searchParams.set('query.title',query);url.searchParams.set('rows','8');url.searchParams.set('sort','published');url.searchParams.set('order','desc');url.searchParams.set('filter','from-pub-date:2025-01-01,until-pub-date:'+new Date().toISOString().slice(0,10)+'');url.searchParams.set('select','DOI,title,published,publisher,URL,type');
   const res=await fetch(url.toString(),{signal:AbortSignal.timeout(9500),headers:{'User-Agent':'FrontierResearchAtlas/1.0 (educational scientific literature discovery)'}});
   if(!res.ok)return NextResponse.json({papers:[],error:'Crossref unavailable'},{status:502});
   const data=await res.json();
