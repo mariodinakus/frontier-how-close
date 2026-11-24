@@ -59,4 +59,12 @@ theorem local_survivor (p : ℕ) : Local p 1 0 0 := by
 #print axioms mod7_certificate
 #print axioms cuboid_mod7
 #print axioms local_survivor
+
+-- Algebraic reduction underlying the divisor search.
+theorem factorization_identity (a b d : ℤ) (h : a^2 + b^2 = d^2) :
+    (d - b) * (d + b) = a^2 := by
+  nlinarith
+
+#print axioms factorization_identity
+
 end OpenMathLab
