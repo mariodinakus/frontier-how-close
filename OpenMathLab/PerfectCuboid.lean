@@ -87,4 +87,23 @@ theorem semiprime_gap_positive (p q : ℤ) (hp : 1 < p) (hq : p < q) :
 #print axioms semiprime_gap_identity
 #print axioms semiprime_gap_positive
 
+
+-- Polynomial expansion for the three type-0 divisors.
+theorem large_prime_expansion (T U V W u v w : ℤ) :
+    (W*T-w)^2 - (U*T-u)^2 - (V*T-v)^2 =
+      (W^2-U^2-V^2)*T^2 + 2*(U*u+V*v-W*w)*T +
+        (w^2-u^2-v^2) := by
+  ring
+
+-- Complementary-divisor identity used in the type-1 hypotenuse case.
+theorem complementary_divisor_identity (u v U V M : ℤ)
+    (hu : u*U = M) (hv : v*V = M) :
+    (u^2+v^2)*(U*V)^2 = M^2*(U^2+V^2) := by
+  calc
+    (u^2+v^2)*(U*V)^2 = (u*U)^2*V^2 + (v*V)^2*U^2 := by ring
+    _ = M^2*(U^2+V^2) := by rw [hu, hv]; ring
+
+#print axioms large_prime_expansion
+#print axioms complementary_divisor_identity
+
 end OpenMathLab
