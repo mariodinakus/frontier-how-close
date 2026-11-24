@@ -1,0 +1,25 @@
+name: Verify mathematical certificates
+on:
+  push:
+    branches: [open-mathematics-lab]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject proof placeholders
+        run: |
+          if grep -nE '\b(sorry|admit|axiom)\b' OpenMathLab/*.lean; then exit 1; fi
+      - uses: leanprover/lean-action@v1
+        with:
+          use-mathlib-cache: true
+      - name: Print theorem dependencies
+        run: lake env lean OpenMathLab/PerfectCuboid.lean
+      - name: Independent bounded checks
+        run: |
+          python3 research/residue_search.py
+          python3 research/cuboid_search.py 1000
