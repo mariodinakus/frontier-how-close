@@ -67,4 +67,24 @@ theorem factorization_identity (a b d : ℤ) (h : a^2 + b^2 = d^2) :
 
 #print axioms factorization_identity
 
+
+-- Exact polynomial obstruction for the distinct-prime semiprime case.
+theorem semiprime_gap_identity (p q : ℤ) :
+    (p * (q^2 - 1))^2 - (q * (p^2 - 1))^2 - (q^2 - p^2)^2 =
+      (p^2 - 1) * (q^2 - p^2) * (q^2 + 1) := by
+  ring
+
+theorem semiprime_gap_positive (p q : ℤ) (hp : 1 < p) (hq : p < q) :
+    0 < (p * (q^2 - 1))^2 - (q * (p^2 - 1))^2 - (q^2 - p^2)^2 := by
+  rw [semiprime_gap_identity]
+  have hp2 : 0 < p^2 - 1 := by nlinarith
+  have hqp : 0 < q^2 - p^2 := by
+    have h : 0 < (q-p)*(q+p) := mul_pos (by linarith) (by linarith)
+    nlinarith
+  have hq2 : 0 < q^2 + 1 := by positivity
+  exact mul_pos (mul_pos hp2 hqp) hq2
+
+#print axioms semiprime_gap_identity
+#print axioms semiprime_gap_positive
+
 end OpenMathLab
