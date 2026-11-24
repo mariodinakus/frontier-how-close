@@ -1,0 +1,23 @@
+{
+  "method": "Euclidean generation of all Pythagorean leg pairs and adjacency intersections; Python exact integers; not an unbounded proof",
+  "results": [
+    {
+      "max_edge": 1000,
+      "euler_bricks": 10,
+      "primitive_euler_bricks": 5,
+      "perfect_cuboids": 0
+    },
+    {
+      "max_edge": 10000,
+      "euler_bricks": 151,
+      "primitive_euler_bricks": 19,
+      "perfect_cuboids": 0
+    },
+    {
+      "max_edge": 100000,
+      "euler_bricks": 1714,
+      "primitive_euler_bricks": 65,
+      "perfect_cuboids": 0
+    }
+  ]
+}
