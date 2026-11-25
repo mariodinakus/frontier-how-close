@@ -40,12 +40,12 @@ theorem cast_local (p : ℕ) (q : PerfectCuboid) :
 set_option maxHeartbeats 0 in
 theorem mod3_certificate : ∀ a b c : ZMod 3, Local 3 a b c →
     (a = 0 ∧ b = 0) ∨ (a = 0 ∧ c = 0) ∨ (b = 0 ∧ c = 0) := by
-  native_decide
+  decide +kernel
 
 set_option maxHeartbeats 0 in
 theorem mod7_certificate : ∀ a b c : ZMod 7, Local 7 a b c →
     a = 0 ∨ b = 0 ∨ c = 0 := by
-  native_decide
+  decide +kernel
 
 theorem cuboid_mod7 (q : PerfectCuboid) :
     (q.a : ZMod 7) = 0 ∨ (q.b : ZMod 7) = 0 ∨ (q.c : ZMod 7) = 0 :=
