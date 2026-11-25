@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Open Mathematics Lab — Perfect cuboid</title>
+<meta name="description" content="A research log on the perfect cuboid problem with machine-checked Lean/Mathlib certificates, reproducible searches and explicit status labels. The problem remains open.">
+<style>
+  :root{--bg:#f7f8fa;--card:#fff;--ink:#1b2430;--mute:#5b6675;--line:#e2e6ec;--accent:#1f4fd6;
+        --ok:#146c43;--okbg:#e6f4ec;--warn:#8a5a00;--warnbg:#fdf3dc;--info:#1f4fd6;--infobg:#e8eefc;--open:#7a1f2b;--openbg:#fbe9eb}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+  header{background:var(--card);border-bottom:1px solid var(--line)}
+  .wrap{max-width:980px;margin:0 auto;padding:0 24px}
+  header .wrap{padding:36px 24px 28px}
+  .kicker{font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--mute)}
+  h1{margin:6px 0 10px;font-size:34px;line-height:1.2}
+  h2{margin:44px 0 12px;font-size:22px}
+  h3{margin:0 0 6px;font-size:16px}
+  p{margin:0 0 12px}
+  .lead{font-size:18px;color:var(--mute);max-width:720px}
+  .row{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-top:16px}
+  .pill{display:inline-block;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:600;white-space:nowrap}
+  .p-ok{background:var(--okbg);color:var(--ok)} .p-warn{background:var(--warnbg);color:var(--warn)}
+  .p-info{background:var(--infobg);color:var(--info)} .p-open{background:var(--openbg);color:var(--open)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:18px 20px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px}
+  .stat b{display:block;font-size:26px}
+  .stat span{color:var(--mute);font-size:14px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;font-size:15px}
+  th,td{text-align:left;padding:10px 14px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{background:#f0f2f6;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--mute)}
+  tr:last-child td{border-bottom:0}
+  code{font:13.5px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;background:#eef1f5;padding:1px 5px;border-radius:4px}
+  pre{background:#101827;color:#e6edf7;padding:14px 16px;border-radius:10px;overflow:auto;font:13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,monospace}
+  a{color:var(--accent)}
+  .note{border-left:4px solid var(--warn);background:var(--warnbg);padding:12px 16px;border-radius:0 8px 8px 0;margin:18px 0}
+  footer{margin:56px 0 40px;color:var(--mute);font-size:14px}
+  img{vertical-align:middle}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <div class="kicker">Open Mathematics Lab · Problem 001</div>
+    <h1>The perfect cuboid</h1>
+    <p class="lead">Does there exist a box with positive integer edges <i>a, b, c</i>, integer face diagonals and an integer space diagonal? Nobody knows. This page is a research log with explicit status labels, not a claimed solution.</p>
+    <div class="row">
+      <span class="pill p-open">Problem status: open</span>
+      <a href="https://github.com/mariodinakus/frontier-how-close/actions/workflows/verify.yml"><img alt="Lean CI" src="https://github.com/mariodinakus/frontier-how-close/actions/workflows/verify.yml/badge.svg?branch=open-mathematics-lab"></a>
+      <a href="https://github.com/mariodinakus/frontier-how-close/tree/open-mathematics-lab">Source on GitHub</a>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<div class="note"><b>Read this first.</b> Nothing here proves or disproves the existence of a perfect cuboid. The results are restrictions on sub-cases and finite computations. Several arguments are human-readable proofs that have <i>not</i> been formalised, and novelty relative to the literature has not been established.</div>
+
+<h2>Where things stand</h2>
+<div class="grid">
+  <div class="card stat"><b>0</b><span>perfect cuboids found, all edges ≤ 10<sup>6</sup> (exact integer search)</span></div>
+  <div class="card stat"><b>17,873</b><span>Euler bricks in that range, 242 of them primitive</span></div>
+  <div class="card stat"><b>11</b><span>theorems compiled by Lean 4 / Mathlib in CI, no <code>sorry</code>, no custom axioms</span></div>
+  <div class="card stat"><b>4</b><span>residual equations left in the squarefree three-prime odd-edge case</span></div>
+</div>
+
+<h2>How results are labelled</h2>
+<table>
+  <tr><th>Label</th><th>Meaning</th></tr>
+  <tr><td><span class="pill p-ok">Lean-verified</span></td><td>Checked by the Lean kernel in CI. Axioms printed by <code>#print axioms</code>.</td></tr>
+  <tr><td><span class="pill p-warn">Lean + compiler trust</span></td><td>Checked, but relies on <code>native_decide</code> (axiom <code>Lean.ofReduceBool</code>).</td></tr>
+  <tr><td><span class="pill p-info">Human proof</span></td><td>Elementary argument written in the notes. Not machine-checked. May contain errors.</td></tr>
+  <tr><td><span class="pill p-open">Finite search</span></td><td>Exact computation up to a bound. Evidence only, never a proof of non-existence.</td></tr>
+</table>
+
+<h2>Lean / Mathlib certificates</h2>
+<table>
+  <tr><th>Statement</th><th>Status</th></tr>
+  <tr><td><code>cast_local</code> — a cuboid reduces to a solution of the four square conditions in every <code>ZMod p</code></td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+  <tr><td><code>mod3_certificate</code> — modulo 3, at least two of the three edges vanish</td><td><span class="pill p-warn">Lean + compiler trust</span></td></tr>
+  <tr><td><code>mod7_certificate</code>, <code>cuboid_mod7</code> — some edge is divisible by 7</td><td><span class="pill p-warn">Lean + compiler trust</span></td></tr>
+  <tr><td><code>local_survivor</code> — (1,0,0) passes every local test</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+  <tr><td><code>factorization_identity</code> — (d−b)(d+b)=a²</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+  <tr><td><code>semiprime_gap_identity</code>, <code>semiprime_gap_positive</code> — polynomial core of the a=pq exclusion</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+  <tr><td><code>large_prime_expansion</code>, <code>complementary_divisor_identity</code>, <code>three_prime_case_8_6_12</code></td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+</table>
+<p style="margin-top:10px;color:var(--mute);font-size:14px">These are algebraic identities and finite local checks. The number-theoretic arguments that use them are listed below and are not yet formalised.</p>
+
+<h2>Human-readable results (not yet formalised)</h2>
+<table>
+  <tr><th>Result</th><th>Scope</th><th>Status</th></tr>
+  <tr><td>An odd edge that is a prime power is impossible</td><td>a = p<sup>k</sup></td><td><span class="pill p-info">Human proof</span></td></tr>
+  <tr><td>An odd edge that is a product of two distinct odd primes is impossible</td><td>a = pq</td><td><span class="pill p-info">Human proof</span> + Lean core identity</td></tr>
+  <tr><td>For a = pqr with p&lt;q&lt;r, the largest prime satisfies r &lt; pq</td><td>squarefree, three primes</td><td><span class="pill p-info">Human proof</span></td></tr>
+  <tr><td>Twelve of the remaining symbolic forms are excluded; four remain</td><td>3 ≤ p &lt; q &lt; r &lt; pq</td><td><span class="pill p-info">Human proof</span> + exact SymPy identities</td></tr>
+  <tr><td>Linear prime-factor bound for one residual equation</td><td>residual equation 2</td><td><span class="pill p-info">Human proof</span></td></tr>
+</table>
+<p style="margin-top:10px;color:var(--mute);font-size:14px">Related published bounds are far larger than anything here. See <a href="https://mathworld.wolfram.com/PerfectCuboid.html">MathWorld</a> and <a href="https://unsolvedproblems.org/S58.pdf">unsolvedproblems.org</a>.</p>
+
+<h2>Finite searches</h2>
+<table>
+  <tr><th>Search</th><th>Range</th><th>Outcome</th></tr>
+  <tr><td>All edges up to a bound</td><td>10<sup>3</sup> → 10<sup>6</sup></td><td>10 → 17,873 Euler bricks; 0 perfect cuboids</td></tr>
+  <tr><td>Odd edge up to 10<sup>5</sup></td><td>50,000 odd edges</td><td>~4.0 million candidate pairs; 0 perfect cuboids</td></tr>
+  <tr><td>Three-prime odd edges, regression of the r&lt;pq bound</td><td>p&lt;q≤100</td><td>candidates 98,161 → 71,548; 0 perfect</td></tr>
+  <tr><td>Continued-fraction scan of residual quartics</td><td>p ≤ 2,000 / 10,000 / 100,000</td><td>no exact solutions</td></tr>
+</table>
+<p style="margin-top:10px;color:var(--mute);font-size:14px">A finite search never shows non-existence. These numbers only show that no small counterexample exists.</p>
+
+<h2>Reproduce it</h2>
+<pre>git clone -b open-mathematics-lab https://github.com/mariodinakus/frontier-how-close
+cd frontier-how-close
+lake update &amp;&amp; lake exe cache get
+lake build
+lake env lean OpenMathLab/PerfectCuboid.lean   # prints axioms per theorem
+python3 research/residue_search.py
+python3 research/cuboid_search.py 1000</pre>
+
+<h2>Next steps</h2>
+<div class="card">
+  <p>1. Replace <code>native_decide</code> by <code>decide</code> so the modular certificates rely only on the Lean kernel.</p>
+  <p>2. Formalise the bound r&lt;pq end to end in Lean and see whether the hand proof survives.</p>
+  <p style="margin:0">3. Attack the four residual equations, or find a uniform obstruction for them.</p>
+</div>
+
+<footer>Maintained by Marios Dinakus. Built with <a href="https://lean-lang.org">Lean 4</a> and <a href="https://github.com/leanprover-community/mathlib4">Mathlib</a>. Statuses in this page are taken from the repository notes; if the repository and this page disagree, trust the repository.</footer>
+</main>
+</body>
+</html>
