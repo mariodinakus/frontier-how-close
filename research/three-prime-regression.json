@@ -1,0 +1,18 @@
+{
+  "q_max": 100,
+  "method": "exact Python integers; independently executed both bounds in one pass",
+  "old": {
+    "edges": 98161,
+    "close": 86758,
+    "bricks": 15,
+    "perfect": 0,
+    "largest": 105348499
+  },
+  "new": {
+    "edges": 71548,
+    "close": 60145,
+    "bricks": 15,
+    "perfect": 0,
+    "largest": 74494157
+  }
+}
