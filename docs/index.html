@@ -69,7 +69,6 @@
 <table>
   <tr><th>Label</th><th>Meaning</th></tr>
   <tr><td><span class="pill p-ok">Lean-verified</span></td><td>Checked by the Lean kernel in CI. Axioms printed by <code>#print axioms</code>.</td></tr>
-  <tr><td><span class="pill p-warn">Lean + compiler trust</span></td><td>Checked, but relies on <code>native_decide</code> (axiom <code>Lean.ofReduceBool</code>).</td></tr>
   <tr><td><span class="pill p-info">Human proof</span></td><td>Elementary argument written in the notes. Not machine-checked. May contain errors.</td></tr>
   <tr><td><span class="pill p-open">Finite search</span></td><td>Exact computation up to a bound. Evidence only, never a proof of non-existence.</td></tr>
 </table>
@@ -78,8 +77,8 @@
 <table>
   <tr><th>Statement</th><th>Status</th></tr>
   <tr><td><code>cast_local</code> — a cuboid reduces to a solution of the four square conditions in every <code>ZMod p</code></td><td><span class="pill p-ok">Lean-verified</span></td></tr>
-  <tr><td><code>mod3_certificate</code> — modulo 3, at least two of the three edges vanish</td><td><span class="pill p-warn">Lean + compiler trust</span></td></tr>
-  <tr><td><code>mod7_certificate</code>, <code>cuboid_mod7</code> — some edge is divisible by 7</td><td><span class="pill p-warn">Lean + compiler trust</span></td></tr>
+  <tr><td><code>mod3_certificate</code> — modulo 3, at least two of the three edges vanish</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
+  <tr><td><code>mod7_certificate</code>, <code>cuboid_mod7</code> — some edge is divisible by 7</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
   <tr><td><code>local_survivor</code> — (1,0,0) passes every local test</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
   <tr><td><code>factorization_identity</code> — (d−b)(d+b)=a²</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
   <tr><td><code>semiprime_gap_identity</code>, <code>semiprime_gap_positive</code> — polynomial core of the a=pq exclusion</td><td><span class="pill p-ok">Lean-verified</span></td></tr>
@@ -119,7 +118,7 @@ python3 research/cuboid_search.py 1000</pre>
 
 <h2>Next steps</h2>
 <div class="card">
-  <p>1. Replace <code>native_decide</code> by <code>decide</code> so the modular certificates rely only on the Lean kernel.</p>
+  <p>1. Done: the modular certificates now use kernel <code>decide</code>, so no theorem depends on <code>Lean.ofReduceBool</code>.</p>
   <p>2. Formalise the bound r&lt;pq end to end in Lean and see whether the hand proof survives.</p>
   <p style="margin:0">3. Attack the four residual equations, or find a uniform obstruction for them.</p>
 </div>
