@@ -106,4 +106,13 @@ theorem complementary_divisor_identity (u v U V M : ℤ)
 #print axioms large_prime_expansion
 #print axioms complementary_divisor_identity
 
+
+-- Algebraic certificate for the remaining-case sieve, index (8,6,12).
+theorem three_prime_case_8_6_12 (p q r : ℤ) :
+    (p^2-q^2*r^2)^2 - (p^2*r^2-q^2)^2 - (p*q*(r^2-1))^2 =
+      (r^2-1)*((q^4-p^4)*(r^2+1)-p^2*q^2*(r^2-1)) := by
+  ring
+
+#print axioms three_prime_case_8_6_12
+
 end OpenMathLab
