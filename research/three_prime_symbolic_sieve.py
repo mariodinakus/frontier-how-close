@@ -21,7 +21,8 @@ for f in range(1,13):
         trip.append((f,b,c))
 def sign(poly):
     cs=poly.coeffs()
-    return 1 if min(cs)>=0 and max(cs)>0 else -1 if max(cs)<=0 and min(cs)<0 else 0
+    boundary=[c for e,c in poly.terms() if e[0]==0]
+    return 1 if min(cs)>=0 and any(c>0 for c in boundary) else -1 if max(cs)<=0 and any(c<0 for c in boundary) else 0
 sq=[s.Poly(x.subs({p:P+3,q:P+Q+3,r:P+Q+R+3}),P,Q,R)**2 for _,x,_ in L]
 def stage(cases,squares,sgn):
     left=[]; removed=[]
