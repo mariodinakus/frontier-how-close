@@ -1,0 +1,36 @@
+[
+  {
+    "p_max": 503,
+    "primes_tested": 95,
+    "quadratics": [
+      680915,
+      643,
+      0,
+      0
+    ],
+    "integer_roots_before_filters": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "solutions": []
+  },
+  {
+    "p_max": 1009,
+    "primes_tested": 168,
+    "quadratics": [
+      4183686,
+      2150,
+      0,
+      0
+    ],
+    "integer_roots_before_filters": [
+      0,
+      0,
+      0,
+      0
+    ],
+    "solutions": []
+  }
+]
