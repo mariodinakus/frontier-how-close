@@ -1,0 +1,20 @@
+{
+  "case1": {
+    "p_max": 2000,
+    "r_primes": 70695,
+    "modular_roots": 282780,
+    "prime_triples": 15,
+    "solutions": []
+  },
+  "case2": {
+    "p_max": 10000,
+    "quadratics": 122698,
+    "square_discriminants": 0,
+    "integer_roots": []
+  },
+  "cases34": {
+    "p_max": 100000,
+    "p_mod8_1": 2384,
+    "square_factors": []
+  }
+}
